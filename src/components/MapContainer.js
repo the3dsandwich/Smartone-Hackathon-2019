@@ -9,20 +9,12 @@ function MapContainer({
   markerData
 }) {
   const [viewport, setViewport] = useState(null);
-  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     if (viewport === null) {
       setViewport(userLocation);
     }
   }, [viewport, userLocation]);
-
-  useEffect(() => {
-    if (markerData && markerData.length > 0) {
-      setMarkers(markerData);
-      console.log("[MapContainer.js] markerData", markerData);
-    }
-  }, [markerData]);
 
   useEffect(() => {
     console.log("[MapContainer.js] viewport changed to", viewport);
@@ -50,7 +42,7 @@ function MapContainer({
         onViewportChanged={handleMapViewportChanged}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {markers.map(marker => (
+        {markerData.map(marker => (
           <Marker
             key={`${marker.loc[0]}+${marker.loc[1]}+${marker.name}`}
             position={marker.loc}
