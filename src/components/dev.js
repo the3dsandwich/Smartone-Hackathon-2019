@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { auth } from "firebase";
+import { auth, firestore } from "firebase";
 
 export const Dev = () => {
   return (
@@ -21,6 +21,22 @@ export const Dev = () => {
         }
       >
         log current user
+      </button>
+      <hr />
+      <button
+        onClick={() => {
+          let f = firestore().collection("testMarkers");
+          for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+              f.add({
+                name: "this is a marker",
+                loc: [22.37 + i * 0.01, 114.202 + j * 0.001]
+              });
+            }
+          }
+        }}
+      >
+        test
       </button>
     </div>
   );
