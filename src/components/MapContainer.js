@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Icon } from "leaflet";
 import "./MapContainer.css";
 
 function MapContainer({
@@ -46,6 +47,7 @@ function MapContainer({
           <Marker
             key={`${marker.loc[0]}+${marker.loc[1]}+${marker.name}`}
             position={marker.loc}
+            icon={new Icon({ iconUrl: "./logo192.png", iconSize: [30, 100] })}
           >
             <Popup>{marker.name}</Popup>
           </Marker>

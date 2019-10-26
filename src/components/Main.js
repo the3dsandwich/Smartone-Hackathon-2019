@@ -84,7 +84,7 @@ export const Main = () => {
           onMapClick={latlng =>
             console.log("[Main.js] Map clicked", latlng, markerData)
           }
-          markerData={markerData}
+          markerData={devMarkerData}
         />
         <button onClick={() => auth().signOut()}>sign out</button>
       </header>
