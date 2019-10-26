@@ -6,6 +6,9 @@ export const Dev = () => {
   const [latitude, setlatitude] = useState(0);
   const db = firebase.firestore();
   const [list, setlist] = useState([]);
+  const [catsub, setCatsub] = useState("");
+  const [cat, setCat] = useState("");
+  const [name, setName] = useState("");
 
   return (
     <div>
@@ -46,7 +49,50 @@ export const Dev = () => {
             setlongitude(e.target.value);
           }}
         />
+        <label>name</label>
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={e => {
+            setName(e.target.value);
+          }}
+        ></input>
       </form>
+
+      <br></br>
+      <label>type</label>
+      <select
+        value={cat}
+        onChange={e => {
+          setCat(e.target.value);
+        }}
+      >
+        <option value="Discount">Discount</option>
+        <option value="Event">Event</option>
+        <option value="Incident">Incident</option>
+      </select>
+      <label>subtype</label>
+      <select
+        value={catsub}
+        onChange={e => {
+          setCatsub(e.target.value);
+        }}
+      >
+        <option value="Foods and Beverages">Foods and Beverages</option>
+        <option value="Stores">Stores</option>
+        <option value="Attractions">Attractions</option>
+        <option value="Hotels">Hotels</option>
+        <option value="Markets">Markets</option>
+        <option value="Music">Music</option>
+        <option value="Parade">Parade</option>
+        <option value="Sports">Sports</option>
+        <option value="Traffic">Traffic</option>
+        <option value="Gathering">Gathering</option>
+        <option value="Fire">Fire</option>
+        <option value="Gas Leakage">Gas Leakage</option>
+        <option value="Air Quality">Air Quality</option>
+      </select>
       <button
         onClick={() => {
           var longIndex = parseFloat(longitude).toFixed(1);
@@ -57,7 +103,10 @@ export const Dev = () => {
             .collection(Index)
             .add({
               loc: [latitude, longitude],
-              name: "test"
+              name: name,
+              category: cat,
+              subtype: catsub,
+              time: new Date().toUTCString()
             });
           alert("uploaded " + Index);
         }}
@@ -89,6 +138,10 @@ export const Dev = () => {
         latitude:{latitude}
         <br></br>
         longitude:{longitude}
+        <br></br>
+        type:{cat}
+        <br></br>
+        sub:{catsub}
       </h1>
     </div>
   );
