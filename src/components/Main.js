@@ -23,7 +23,7 @@ export const Main = () => {
     zoom: 13
   });
   const [markerData, setMarkerData] = useState([]);
-  const [AddFormDisplay, setAddFormDisplay] = useState(false);
+  const [AddFormDisplay, setAddFormDisplay] = useState(true);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos =>
@@ -98,7 +98,7 @@ export const Main = () => {
 
         <button onClick={() => auth().signOut()}>sign out</button>
         {AddFormDisplay ? (
-          <AddForm />
+          <AddForm toggleForm={setAddFormDisplay} />
         ) : (
           <button
             className="fab"
