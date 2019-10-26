@@ -110,7 +110,7 @@ export const Main = () => {
 
         <button onClick={() => auth().signOut()}>sign out</button>
         {AddFormDisplay ? (
-          <AddForm toggleForm={setAddFormDisplay} />
+          <AddForm setAddFormDisplay={setAddFormDisplay} />
         ) : (
           <button
             className="fab"

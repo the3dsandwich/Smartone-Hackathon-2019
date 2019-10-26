@@ -56,27 +56,31 @@ export const AddForm = ({ setAddFormDisplay }) => {
     addMarker(parseSending)
       .then(res => console.log(res))
       .catch(err => console.log(err));
+
+      setAddFormDisplay(false);
   };
 
   switch (formState) {
     case "select-category":
       return (
-        <form onSubmit={handleSwitchState1}>
-          <label>
-            select category
-            <select
-              value={categorySelection}
-              onChange={e => setCategorySelection(e.target.value)}
-            >
-              {catSub.map(cat => (
-                <option key={cat.name} value={cat.name}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button type="submit">Next!</button>
-        </form>
+        <div className="firstPop">
+          <form onSubmit={handleSwitchState1}>
+              <label>
+                select category
+                <select
+                  value={categorySelection}
+                  onChange={e => setCategorySelection(e.target.value)}
+                >
+                  {catSub.map(cat => (
+                    <option key={cat.name} value={cat.name}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button type="submit">Next!</button>
+          </form>
+        </div>
       );
     case "select-subtype":
       return (
