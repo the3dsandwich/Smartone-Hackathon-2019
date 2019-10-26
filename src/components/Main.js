@@ -3,6 +3,11 @@ import { auth } from "firebase";
 import "./Main.css";
 import { MapContainer } from "./MapContainer";
 
+
+//Newly added TABS
+import Tabs from './Tabs';
+require("./Tab.css");
+
 const devMarkerData = [
   {
     name: "this is a marker",
@@ -39,6 +44,19 @@ export const Main = () => {
           onMapClick={latlng => console.log("[Main.js] Map clicked", latlng)}
           markerData={devMarkerData}
         />
+
+        <Tabs>
+          <div label = "Discount">
+            OOoooo free stuff?
+          </div>
+          <div label = "Events">
+            what's happening around
+          </div>
+          <div label = "Incidents">
+            omg teargass
+          </div>
+        </Tabs>
+
         <button onClick={() => auth().signOut()}>sign out</button>
       </header>
     </div>
