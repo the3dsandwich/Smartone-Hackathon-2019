@@ -3,6 +3,17 @@ import { auth, firestore } from "firebase";
 import "./Main.css";
 import { MapContainer } from "./MapContainer";
 
+//Newly added TABS
+import Tabs from "./Tabs";
+require("./Tab.css");
+
+const devMarkerData = [
+  {
+    name: "this is a marker",
+    loc: [22.42, 114.207]
+  }
+];
+
 export const Main = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [userLocation, setUserLocation] = useState();
@@ -76,6 +87,13 @@ export const Main = () => {
           onMapClick={latlng => console.log("[Main.js] Map clicked", latlng)}
           markerData={markerData}
         />
+
+        <Tabs>
+          <div label="Discount">OOoooo free stuff?</div>
+          <div label="Events">what's happening around</div>
+          <div label="Incidents">omg teargass</div>
+        </Tabs>
+
         <button onClick={() => auth().signOut()}>sign out</button>
       </header>
     </div>
