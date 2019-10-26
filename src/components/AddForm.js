@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { functions } from "firebase";
+import "./AddForm.css";
 
 const catSub = [
   {
@@ -57,72 +58,84 @@ export const AddForm = ({ setAddFormDisplay }) => {
       .then(res => console.log(res))
       .catch(err => console.log(err));
 
-      setAddFormDisplay(false);
+    setAddFormDisplay(false);
   };
 
   switch (formState) {
     case "select-category":
       return (
-        <div className="firstPop">
+        <div className="addform-container">
           <form onSubmit={handleSwitchState1}>
-              <label>
-                select category
-                <select
-                  value={categorySelection}
-                  onChange={e => setCategorySelection(e.target.value)}
-                >
-                  {catSub.map(cat => (
-                    <option key={cat.name} value={cat.name}>
-                      {cat.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button type="submit">Next!</button>
+            <label>
+              select category
+              <br />
+              <select
+                value={categorySelection}
+                onChange={e => setCategorySelection(e.target.value)}
+              >
+                {catSub.map(cat => (
+                  <option key={cat.name} value={cat.name}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />
+            <button type="submit">Next!</button>
           </form>
         </div>
       );
     case "select-subtype":
       return (
-        <form onSubmit={handleSwitchState2}>
-          <label>
-            select {categorySelection} type
-            <select
-              value={subtypeSelection}
-              onChange={e => setSubtypeSelection(e.target.value)}
-            >
-              {catSub
-                .filter(i => i.name === categorySelection)[0]
-                .subtype.map(s => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
-                ))}
-            </select>
-          </label>
-          <button type="submit">Next!</button>
-        </form>
+        <div className="addform-container">
+          <form onSubmit={handleSwitchState2}>
+            <label>
+              select {categorySelection.toLowerCase()} type
+              <br />
+              <select
+                value={subtypeSelection}
+                onChange={e => setSubtypeSelection(e.target.value)}
+              >
+                {catSub
+                  .filter(i => i.name === categorySelection)[0]
+                  .subtype.map(s => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
+                  ))}
+              </select>
+            </label>
+            <br />
+            <button type="submit">Next!</button>
+          </form>
+        </div>
       );
     case "enter-description":
       return (
-        <form onSubmit={handleSwitchState3}>
-          <label>
-            The description:
-            <input
-              type="text"
-              value={descriptionInput}
-              name="description"
-              onChange={e => setDescriptionInput(e.target.value)}
-            ></input>
-          </label>
-          <button type="submit">Next!</button>
-        </form>
+        <div className="addform-container">
+          <form onSubmit={handleSwitchState3}>
+            <label>
+              The description:
+              <br />
+              <input
+                type="text"
+                value={descriptionInput}
+                name="description"
+                onChange={e => setDescriptionInput(e.target.value)}
+              ></input>
+            </label>
+            <br />
+            <button type="submit">Next!</button>
+          </form>
+        </div>
       );
     case "submit":
       return (
-        <form onSubmit={addFormResponse}>
-          <button type="submit">Submit!</button>
-        </form>
+        <div className="addform-container">
+          <form onSubmit={addFormResponse}>
+            <button type="submit">Submit!</button>
+          </form>
+        </div>
       );
     default:
       return null;

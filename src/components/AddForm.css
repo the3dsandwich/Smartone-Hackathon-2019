@@ -1,9 +1,19 @@
-* { box-sizing: border-box; position:relative;}
-.firstPopup{
-    display: block;
-    position: fixed;
-    bottom: 0;
-    right: 50%px;
-    border: 3px solid #f1f1f1;
-    z-index: 1010;
+* {
+  box-sizing: border-box;
+  position: relative;
+}
+
+.addform-container {
+  position: fixed;
+  width: 80vw;
+  height: 80vh;
+  top: 10vh;
+  left: 10vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f1f1f1;
+  color: black;
+  z-index: 900;
 }
