@@ -95,9 +95,10 @@ export const Main = () => {
       <header className="Main-header">
         <MapContainer
           userLocation={viewLocation}
-          onViewportChanged={viewport =>
-            console.log("[Main.js] viewport changed", viewport)
-          }
+          onViewportChanged={viewport => {
+            setViewLocation(viewport);
+            console.log("[Main.js] viewport changed", viewport);
+          }}
           onMapClick={latlng => console.log("[Main.js] Map clicked", latlng)}
           markerData={markerData}
         />
