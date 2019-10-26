@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import firebase, { functions } from "firebase";
+import "./AddForm.css";
 
 const catSub = [
   {
