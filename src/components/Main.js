@@ -23,7 +23,8 @@ export const Main = () => {
     zoom: 13
   });
   const [markerData, setMarkerData] = useState([]);
-  const [AddFormDisplay, setAddFormDisplay] = useState(true);
+  const [AddFormDisplay, setAddFormDisplay] = useState(false);
+  const [markerStored, setMartkerStored] = useState([]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos =>
@@ -49,7 +50,9 @@ export const Main = () => {
   ];
 
   useEffect(() => {
+    // setMarkerData([]);
     const listeners = [];
+    var duplicated = false;
     for (const region of getRegion(viewLocation.center)) {
       console.log(region);
       listeners.push(
@@ -63,7 +66,16 @@ export const Main = () => {
               let tmp = doc.data();
               tmp.loc[0] = parseFloat(tmp.loc[0]);
               tmp.loc[1] = parseFloat(tmp.loc[1]);
-              markerTemp.push(tmp);
+              for (const i of markerTemp) {
+                if (i.loc[0] == tmp.loc[0] && i.loc[1] == tmp.loc[1]) {
+                  duplicated = true;
+                  console.log("duplicated");
+                }
+              }
+              if (!duplicated) {
+                markerTemp.push(tmp);
+                console.log("push");
+              }
             });
             setMarkerData(markerTemp);
             console.log(markerData);
@@ -76,7 +88,7 @@ export const Main = () => {
         unsubscribe();
       }
     };
-  }, [markerData, viewLocation]);
+  });
 
   return (
     <div className="Main">
