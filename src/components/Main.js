@@ -3,16 +3,14 @@ import { auth, firestore } from "firebase";
 import "./Main.css";
 import { MapContainer } from "./MapContainer";
 import { AddForm } from "./AddForm";
-
-//Newly added TABS
 import { Tab } from "./Tab";
 
-const devMarkerData = [
-  {
-    name: "this is a marker",
-    loc: [22.42, 114.207]
-  }
-];
+// const devMarkerData = [
+//   {
+//     name: "this is a marker",
+//     loc: [22.42, 114.207]
+//   }
+// ];
 
 export const Main = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -26,10 +24,20 @@ export const Main = () => {
   const [filteredCategory, setFilteredCategory] = useState("Discount");
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(pos =>
-      setUserLocation({ center: [pos.coords.latitude, pos.coords.longitude] })
-    );
-  });
+    navigator.geolocation.getCurrentPosition(pos => {
+      setUserLocation({ center: [pos.coords.latitude, pos.coords.longitude] });
+      console.log("[Main.js] pulled location data", {
+        center: [pos.coords.latitude, pos.coords.longitude]
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (typeof userLocation !== "undefined") {
+      console.log("[Main.js] move to", userLocation);
+      setViewLocation(userLocation);
+    }
+  }, [userLocation]);
 
   useEffect(() => {
     setUserInfo(auth().currentUser);
@@ -53,12 +61,12 @@ export const Main = () => {
     const listeners = [];
     var duplicated = false;
     for (const region of getRegion(viewLocation.center)) {
-      console.log(region);
       listeners.push(
         firestore()
           .collection("test")
           .doc("test")
           .collection(region)
+          // eslint-disable-next-line no-loop-func
           .onSnapshot(snap => {
             let markerTemp = markerData;
             snap.forEach(doc => {
@@ -66,18 +74,15 @@ export const Main = () => {
               tmp.loc[0] = parseFloat(tmp.loc[0]);
               tmp.loc[1] = parseFloat(tmp.loc[1]);
               for (const i of markerTemp) {
-                if (i.loc[0] == tmp.loc[0] && i.loc[1] == tmp.loc[1]) {
+                if (i.loc[0] === tmp.loc[0] && i.loc[1] === tmp.loc[1]) {
                   duplicated = true;
-                  console.log("duplicated");
                 }
               }
               if (!duplicated) {
                 markerTemp.push(tmp);
-                console.log("push");
               }
             });
             setMarkerData(markerTemp);
-            console.log(markerData);
           })
       );
     }
@@ -93,7 +98,8 @@ export const Main = () => {
     <div className="Main">
       <header className="Main-header">
         <MapContainer
-          userLocation={viewLocation}
+          viewLocation={viewLocation}
+          userLocation={userLocation}
           onViewportChanged={viewport => {
             setViewLocation(viewport);
             console.log("[Main.js] viewport changed", viewport);
@@ -108,7 +114,11 @@ export const Main = () => {
         />
 
         {AddFormDisplay ? (
-          <AddForm setAddFormDisplay={setAddFormDisplay} />
+          <AddForm
+            setAddFormDisplay={setAddFormDisplay}
+            userLocation={userLocation}
+            userInfo={userInfo}
+          />
         ) : (
           <button
             className="fab"
