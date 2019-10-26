@@ -99,7 +99,7 @@ export const Main = () => {
             console.log("[Main.js] viewport changed", viewport);
           }}
           onMapClick={latlng => console.log("[Main.js] Map clicked", latlng)}
-          markerData={markerData}
+          markerData={markerData.filter(m => m.category === filteredCategory)}
         />
 
         <Tab
@@ -107,7 +107,6 @@ export const Main = () => {
           setFilteredCategory={setFilteredCategory}
         />
 
-        <button onClick={() => auth().signOut()}>sign out</button>
         {AddFormDisplay ? (
           <AddForm toggleForm={setAddFormDisplay} />
         ) : (
