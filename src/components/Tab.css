@@ -37,9 +37,14 @@
   color: black;
   text-align: left;
   font-size: 0.7em;
-  padding: 1em;
-  height: 18vh;
+  margin: 1em;
+  padding-left: 0;
+  height: 22vh;
   overflow: scroll;
+}
+
+.tab-content h4 {
+  margin-top: 0;
 }
 
 .tab-content li {

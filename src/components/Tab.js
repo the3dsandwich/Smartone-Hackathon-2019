@@ -53,7 +53,7 @@ export const Tab = ({ markerData, setFilteredCategory }) => {
       </ul>
 
       <ul className="tab-content">
-        {devMarkerData
+        {markerData
           .filter(m => m.category === activeTab)
           .map(marker => (
             <li key={marker.name}>
