@@ -3,6 +3,8 @@ import { auth, firestore } from "firebase";
 import "./Main.css";
 import { MapContainer } from "./MapContainer";
 
+const devMarkerData = [{ loc: [22.415, 114.207], name: "temp" }];
+
 export const Main = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [userLocation, setUserLocation] = useState();
@@ -38,7 +40,6 @@ export const Main = () => {
   useEffect(() => {
     const listeners = [];
     for (const region of getRegion(viewLocation.center)) {
-      console.log(region);
       listeners.push(
         firestore()
           .collection("test")
@@ -50,16 +51,22 @@ export const Main = () => {
               let tmp = doc.data();
               tmp.loc[0] = parseFloat(tmp.loc[0]);
               tmp.loc[1] = parseFloat(tmp.loc[1]);
-              markerTemp.push(tmp);
+              const index = markerData.findIndex(
+                o => o.loc === tmp.loc && o.name === tmp.loc
+              );
+              if (index === -1) {
+                markerTemp.push(tmp);
+              }
             });
             setMarkerData(markerTemp);
-            console.log(markerData);
+            console.log("[Main.js] markerData is", markerData);
           })
       );
     }
 
     return () => {
       for (const unsubscribe of listeners) {
+        console.log("[Main.js] unsubscribing");
         unsubscribe();
       }
     };
@@ -70,11 +77,9 @@ export const Main = () => {
       <header className="Main-header">
         <MapContainer
           userLocation={viewLocation}
-          onViewportChanged={viewport =>
-            console.log("[Main.js] viewport changed", viewport)
-          }
+          onViewportChanged={viewport => setViewLocation(viewport)}
           onMapClick={latlng => console.log("[Main.js] Map clicked", latlng)}
-          markerData={markerData}
+          markerData={devMarkerData.concat(markerData)}
         />
         <button onClick={() => auth().signOut()}>sign out</button>
       </header>
