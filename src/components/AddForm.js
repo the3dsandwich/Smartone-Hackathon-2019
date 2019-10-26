@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { functions } from "firebase";
+import firebase, { functions } from "firebase";
 
 const catSub = [
   {
@@ -14,6 +14,7 @@ const catSub = [
 ];
 
 export const AddForm = ({ setAddFormDisplay }) => {
+  const db = firebase.firestore();
   const [formState, setFormState] = useState("select-category");
   const [categorySelection, setCategorySelection] = useState("Discount");
   const [subtypeSelection, setSubtypeSelection] = useState("");
@@ -52,12 +53,20 @@ export const AddForm = ({ setAddFormDisplay }) => {
     };
     console.log("[AddForm.js] received instruction", parseSending);
 
-    const addMarker = functions().httpsCallable("addMarker");
-    addMarker(parseSending)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    // const addMarker = functions().httpsCallable("addMarker");
+    // addMarker(parseSending)
+    //   .then(res => console.log(res))
+    //   .catch(err => console.log(err));
+    var longIndex = parseFloat(loc[1]).toFixed(1);
+    var latiIndex = parseFloat(loc[0]).toFixed(1);
+    var Index = latiIndex + "+" + longIndex;
+    db.collection("test")
+      .doc("test")
+      .collection(Index)
+      .add(parseSending);
+    alert("uploaded " + Index);
 
-      setAddFormDisplay(false);
+    setAddFormDisplay(false);
   };
 
   switch (formState) {
@@ -65,20 +74,20 @@ export const AddForm = ({ setAddFormDisplay }) => {
       return (
         <div className="firstPop">
           <form onSubmit={handleSwitchState1}>
-              <label>
-                select category
-                <select
-                  value={categorySelection}
-                  onChange={e => setCategorySelection(e.target.value)}
-                >
-                  {catSub.map(cat => (
-                    <option key={cat.name} value={cat.name}>
-                      {cat.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button type="submit">Next!</button>
+            <label>
+              select category
+              <select
+                value={categorySelection}
+                onChange={e => setCategorySelection(e.target.value)}
+              >
+                {catSub.map(cat => (
+                  <option key={cat.name} value={cat.name}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button type="submit">Next!</button>
           </form>
         </div>
       );
