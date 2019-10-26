@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { auth, firestore } from "firebase";
 import "./Main.css";
 import { MapContainer } from "./MapContainer";
+import { AddForm } from "./AddForm";
 
 //Newly added TABS
 import Tabs from "./Tabs";
@@ -22,6 +23,7 @@ export const Main = () => {
     zoom: 13
   });
   const [markerData, setMarkerData] = useState([]);
+  const [AddFormDisplay, setAddFormDisplay] = useState(false);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos =>
@@ -95,6 +97,16 @@ export const Main = () => {
         </Tabs>
 
         <button onClick={() => auth().signOut()}>sign out</button>
+        {AddFormDisplay ? (
+          <AddForm />
+        ) : (
+          <button
+            className="fab"
+            onClick={() => setAddFormDisplay(!AddFormDisplay)}
+          >
+            +
+          </button>
+        )}
       </header>
     </div>
   );

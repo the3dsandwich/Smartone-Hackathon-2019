@@ -1,44 +1,37 @@
-import React, { useState, useEffect, Component } from "react";
-import PropTypes from 'prop-types';
-import { link } from 'fs';
+import React, { useState, useEffect, Component } from 'react'
+import PropTypes from 'prop-types'
+import { link } from 'fs'
 
-class Tab extends Component{
-    static propTypes = {
-        activeTab: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        onClick: PropTypes.func.isRequired,
-    };
+class Tab extends Component {
+  static propTypes = {
+    activeTab: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
+  }
 
-    onClick = () => {
-        const{label, onClick} = this.props;
-        onClick(label);
+  onClick = () => {
+    const { label, onClick } = this.props
+    onClick(label)
+  }
+
+  render() {
+    const {
+      onClick,
+      props: { activeTab, label }
+    } = this
+
+    let className = 'tab-list-item'
+
+    if (activeTab === label) {
+      className += 'tab-item-active'
     }
 
-    render(){
-        const{
-            onClick,
-            props:{
-                activeTab,
-                label,
-            },
-        } = this;
-
-        let className='tab-list-item';
-
-        if (activeTab === label){
-            className += 'tab-item-active';
-        }
-
-        return(
-            <li
-                className={className}
-                onClick={onClick}
-            >
-                {label}
-            </li>
-        );
-    }
-
+    return (
+      <li className={className} onClick={onClick}>
+        {label}
+      </li>
+    )
+  }
 }
 
-export default Tab;
+export default Tab
