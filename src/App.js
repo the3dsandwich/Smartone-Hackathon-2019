@@ -9,8 +9,7 @@ import { config } from "./firebase/firebase-config";
 import "./App.css";
 // import sub-components
 import { Main } from "./components/Main";
-import { Dev } from "./components/dev";
-
+// import { Dev } from "./components/dev";
 
 export const App = () => {
   const [appLoading, setAppLoading] = useState(true);
@@ -73,9 +72,9 @@ export const App = () => {
         </header>
       </div>
     );
-  } else if (openDevComponent) {
-    // dev component opens with "d" press
-    return <Dev />;
+    // } else if (openDevComponent) {
+    //   // dev component opens with "d" press
+    //   return <Dev />;
   } else if (isLoggedin) {
     // user is logged in
     return <Main />;

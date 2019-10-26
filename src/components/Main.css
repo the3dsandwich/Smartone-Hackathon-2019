@@ -38,10 +38,8 @@
   top: 50vh;
   right: 5vw;
   z-index: 1000;
-  opacity: 50%;
 }
 
 .fab:hover {
   background-color: #8fbae0;
-  opacity: 100%;
 }
