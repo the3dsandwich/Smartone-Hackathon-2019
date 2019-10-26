@@ -1,37 +1,67 @@
-import React, { useState, useEffect, Component } from 'react'
-import PropTypes from 'prop-types'
-import { link } from 'fs'
+import React, { useState, useEffect } from "react";
+import "./Tab.css";
 
-class Tab extends Component {
-  static propTypes = {
-    activeTab: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired
+const catSub = [
+  {
+    name: "Discount",
+    subtype: ["Foods and Beverages", "Stores", "Attractions", "Hotels"]
+  },
+  { name: "Event", subtype: ["Markets", "Music", "Parade", "Sports"] },
+  {
+    name: "Incident",
+    subtype: ["Traffic", "Gathering", "Fire", "Gas Leakage", "Air Quality"]
   }
+];
 
-  onClick = () => {
-    const { label, onClick } = this.props
-    onClick(label)
-  }
+const devMarkerData = [
+  { loc: [22.50469, 114.21077], name: "Discount stuff", category: "Discount" },
+  {
+    loc: [22.50269, 114.19077],
+    name: "Discount stuff 2",
+    category: "Discount"
+  },
+  { loc: [22.50369, 114.22077], name: "Event stuff", category: "Event" },
+  { loc: [22.50069, 114.20077], name: "Event stuff 2", category: "Event" },
+  { loc: [22.50869, 114.20077], name: "Incedent stuff", category: "Incident" }
+];
 
-  render() {
-    const {
-      onClick,
-      props: { activeTab, label }
-    } = this
+export const Tab = ({ markerData, setFilteredCategory }) => {
+  const [activeTab, setActiveTab] = useState(catSub[0].name);
 
-    let className = 'tab-list-item'
+  const handleListClick = e => {
+    setActiveTab(e.target.value);
+    setFilteredCategory(e.target.value);
+  };
 
-    if (activeTab === label) {
-      className += 'tab-item-active'
-    }
+  return (
+    <div className="tabs-container">
+      <ul className="tab-list">
+        {catSub.map(c => (
+          <li
+            key={c.name}
+            className={
+              activeTab === c.name
+                ? "tab-list-item tab-list-active"
+                : "tab-list-item"
+            }
+          >
+            <button value={c.name} onClick={handleListClick}>
+              {c.name}
+            </button>
+          </li>
+        ))}
+      </ul>
 
-    return (
-      <li className={className} onClick={onClick}>
-        {label}
-      </li>
-    )
-  }
-}
-
-export default Tab
+      <ul className="tab-content">
+        {markerData
+          .filter(m => m.category === activeTab)
+          .map(marker => (
+            <li key={marker.name}>
+              <h4>{marker.name}</h4>
+              <p>[category: {marker.category}]</p>
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
+};
