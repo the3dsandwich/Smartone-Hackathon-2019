@@ -1,5 +1,6 @@
 .Main {
   text-align: center;
+  overflow: hidden;
 }
 
 .Main-header {
@@ -9,11 +10,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  font-family: "Comic Sans MS", cursive, sans-serif;
   font-size: 29px;
   letter-spacing: 0.2px;
   word-spacing: 0px;
-  color: #FFFEF0;
+  color: #fffef0;
   font-weight: 400;
   text-decoration: none;
   font-style: normal;
@@ -21,28 +21,28 @@
   text-transform: none;
 }
 .fab {
-	background-color:#c0dced;
-	border-radius:50%;
-	border:4px solid #3866a3;
-	display:inline-block;
-	cursor:pointer;
-	color:#14396a;
-	font-family:Impact;
-	font-size:45px;
-	font-weight:bold;
-	padding:8px 24px;
-	text-decoration:none;
-	text-shadow:2px 2px 0px #7cacde;
+  background-color: #c0dced;
+  border-radius: 50%;
+  border: 4px solid #3866a3;
+  display: inline-block;
+  cursor: pointer;
+  color: #14396a;
+  font-family: Impact;
+  font-size: 45px;
+  font-weight: bold;
+  padding: 8px 24px;
+  text-decoration: none;
+  text-shadow: 2px 2px 0px #7cacde;
   position: fixed;
-  top:50%;
-  right:5%;
-  z-index:1000;
+  top: 50%;
+  right: 5%;
+  z-index: 1000;
 }
 .fab:hover {
-	background-color:#8fbae0;
+  background-color: #8fbae0;
 }
 .fab:active {
-	position:fixed;
-	top:50%;
-  right:5%;
+  position: fixed;
+  top: 50%;
+  right: 5%;
 }

@@ -5,8 +5,7 @@ import { MapContainer } from "./MapContainer";
 import { AddForm } from "./AddForm";
 
 //Newly added TABS
-import Tabs from "./Tabs";
-require("./Tab.css");
+import { Tab } from "./Tab";
 
 const devMarkerData = [
   {
@@ -24,7 +23,7 @@ export const Main = () => {
   });
   const [markerData, setMarkerData] = useState([]);
   const [AddFormDisplay, setAddFormDisplay] = useState(false);
-  const [markerStored, setMartkerStored] = useState([]);
+  const [filteredCategory, setFilteredCategory] = useState("Discount");
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(pos =>
@@ -103,11 +102,10 @@ export const Main = () => {
           markerData={markerData}
         />
 
-        <Tabs>
-          <div label="Discount">OOoooo free stuff?</div>
-          <div label="Events">what's happening around</div>
-          <div label="Incidents">omg teargass</div>
-        </Tabs>
+        <Tab
+          markerData={markerData}
+          setFilteredCategory={setFilteredCategory}
+        />
 
         <button onClick={() => auth().signOut()}>sign out</button>
         {AddFormDisplay ? (
