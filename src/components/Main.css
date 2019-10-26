@@ -13,7 +13,6 @@
   color: white;
 }
 .fab {
-	box-shadow: 2px 2px 0px 0px #bee2f9;
 	background-color:#c0dced;
 	border-radius:50%;
 	border:4px solid #3866a3;
@@ -26,15 +25,16 @@
 	padding:8px 24px;
 	text-decoration:none;
 	text-shadow:2px 2px 0px #7cacde;
-  position:absolute;
-  right:60px;
-  top:400px;
+  position: fixed;
+  top:55%;
+  right:5%;
   z-index:1000;
 }
 .fab:hover {
 	background-color:#8fbae0;
 }
 .fab:active {
-	position:relative;
-	top:1px;
+	position:fixed;
+	top:55%;
+  right:5%;
 }
