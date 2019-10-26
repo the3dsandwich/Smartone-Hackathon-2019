@@ -20,6 +20,7 @@
   font-variant: normal;
   text-transform: none;
 }
+
 .fab {
   background-color: #c0dced;
   border-radius: 50%;
@@ -34,15 +35,13 @@
   text-decoration: none;
   text-shadow: 2px 2px 0px #7cacde;
   position: fixed;
-  top: 50%;
-  right: 5%;
+  top: 50vh;
+  right: 5vw;
   z-index: 1000;
+  opacity: 50%;
 }
+
 .fab:hover {
   background-color: #8fbae0;
-}
-.fab:active {
-  position: fixed;
-  top: 50%;
-  right: 5%;
+  opacity: 100%;
 }

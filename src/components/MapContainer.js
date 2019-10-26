@@ -37,6 +37,9 @@ function MapContainer({
   return (
     <div className="Map-Container">
       <Map
+        minZoom={15}
+        maxZoom={18}
+        zoomControl={false}
         className="Map"
         viewport={viewport}
         onClick={handleMapClick}
