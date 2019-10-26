@@ -1,70 +1,125 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { functions } from "firebase";
 
-export const AddForm = () => {
+const catSub = [
+  {
+    name: "Discount",
+    subtype: ["Foods and Beverages", "Stores", "Attractions", "Hotels"]
+  },
+  { name: "Event", subtype: ["Markets", "Music", "Parade", "Sports"] },
+  {
+    name: "Incident",
+    subtype: ["Traffic", "Gathering", "Fire", "Gas Leakage", "Air Quality"]
+  }
+];
+
+export const AddForm = ({ setAddFormDisplay }) => {
   const [formState, setFormState] = useState("select-category");
+  const [categorySelection, setCategorySelection] = useState("Discount");
+  const [subtypeSelection, setSubtypeSelection] = useState("");
+  const [descriptionInput, setDescriptionInput] = useState("");
+
+  const handleSwitchState1 = e => {
+    e.preventDefault();
+    setSubtypeSelection(
+      catSub.filter(i => i.name === categorySelection)[0].subtype[0]
+    );
+    setFormState("select-subtype");
+  };
+
+  const handleSwitchState2 = e => {
+    e.preventDefault();
+    setFormState("enter-description");
+  };
+
+  const handleSwitchState3 = e => {
+    e.preventDefault();
+    setFormState("submit");
+  };
+
+  const addFormResponse = e => {
+    e.preventDefault();
+    let loc = [22.42, 114.207];
+    navigator.geolocation.getCurrentPosition(
+      pos => (loc = [pos.coords.latitude, pos.coords.longitude])
+    );
+    const parseSending = {
+      loc: loc,
+      name: descriptionInput,
+      time: new Date().toUTCString(),
+      category: categorySelection,
+      subtype: subtypeSelection
+    };
+    console.log("[AddForm.js] received instruction", parseSending);
+
+    const addMarker = functions().httpsCallable("addMarker");
+    addMarker(parseSending)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
   switch (formState) {
     case "select-category":
       return (
-        <form onSubmit={null}>
-          <label>select category</label>
-          <select>
-            <option value="discount"> Discount </option>
-            <option value="event"> Event </option>
-            <option value="incident"> Incident </option>
-          </select>
-          <br></br>
-          <input type="submit" value="Next"></input>
+        <form onSubmit={handleSwitchState1}>
+          <label>
+            select category
+            <select
+              value={categorySelection}
+              onChange={e => setCategorySelection(e.target.value)}
+            >
+              {catSub.map(cat => (
+                <option key={cat.name} value={cat.name}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button type="submit">Next!</button>
         </form>
       );
     case "select-subtype":
       return (
-        <div>
-          <form onSubmit={null}>
-            <label>select discount type</label>
-            <select>
-              <option value="discount"> Foods and Beverages </option>
-              <option value="event"> Stores </option>
-              <option value="incident"> Attractions </option>
-              <option value="incident"> Hotels </option>
+        <form onSubmit={handleSwitchState2}>
+          <label>
+            select {categorySelection} type
+            <select
+              value={subtypeSelection}
+              onChange={e => setSubtypeSelection(e.target.value)}
+            >
+              {catSub
+                .filter(i => i.name === categorySelection)[0]
+                .subtype.map(s => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
             </select>
-            <br></br>
-            <input type="submit" value="Next"></input>
-          </form>
-          <form onSubmit="">
-            <label>select event type</label>
-            <select>
-              <option value="discount"> Markets </option>
-              <option value="event"> Music </option>
-              <option value="incident"> Parade </option>
-              <option value="incident"> Sports </option>
-            </select>
-            <br></br>
-            <input type="submit" value="Next"></input>
-          </form>
-          <form onSubmit="">
-            <label>select incident type</label>
-            <select>
-              <option value="discount"> Traffic </option>
-              <option value="event"> Gathering </option>
-              <option value="incident"> Fire </option>
-              <option value="incident"> Gas Leakage </option>
-              <option value="incident"> Air Quality </option>
-            </select>
-            <br></br>
-            <input type="submit" value="Next"></input>
-          </form>
-        </div>
+          </label>
+          <button type="submit">Next!</button>
+        </form>
       );
     case "enter-description":
       return (
-        <form>
-          <label>The description:</label>
-          <input type="text" name="description"></input>
-          <input type="submit" value="Next"></input>
+        <form onSubmit={handleSwitchState3}>
+          <label>
+            The description:
+            <input
+              type="text"
+              value={descriptionInput}
+              name="description"
+              onChange={e => setDescriptionInput(e.target.value)}
+            ></input>
+          </label>
+          <button type="submit">Next!</button>
         </form>
       );
     case "submit":
-      return null;
+      return (
+        <form onSubmit={addFormResponse}>
+          <button type="submit">Submit!</button>
+        </form>
+      );
     default:
       return null;
   }
