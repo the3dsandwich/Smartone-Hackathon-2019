@@ -51,12 +51,12 @@ export const Dev = () => {
         onClick={() => {
           var longIndex = parseFloat(longitude).toFixed(1);
           var latiIndex = parseFloat(latitude).toFixed(1);
-          var Index = latiIndex + "+" + longIndex;
+          var Index = longIndex + "+" + latiIndex;
           db.collection("test")
             .doc("test")
             .collection(Index)
             .add({
-              loc: [latitude, longitude],
+              location: [latitude, longitude],
               name: "test"
             });
           alert("uploaded " + Index);
@@ -68,7 +68,7 @@ export const Dev = () => {
         onClick={() => {
           var longIndex = parseFloat(longitude).toFixed(1);
           var latiIndex = parseFloat(latitude).toFixed(1);
-          var Index = latiIndex + "+" + longIndex;
+          var Index = longIndex + "+" + latiIndex;
           var ref = db
             .collection("test")
             .doc("test")

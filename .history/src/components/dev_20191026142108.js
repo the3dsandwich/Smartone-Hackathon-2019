@@ -49,14 +49,14 @@ export const Dev = () => {
       </form>
       <button
         onClick={() => {
-          var longIndex = parseFloat(longitude).toFixed(1);
-          var latiIndex = parseFloat(latitude).toFixed(1);
-          var Index = latiIndex + "+" + longIndex;
+          var longIndex = parseFloat(longitude).toFixed(5);
+          var latiIndex = parseFloat(latitude).toFixed(5);
+          var Index = longIndex + "+" + latiIndex;
           db.collection("test")
             .doc("test")
             .collection(Index)
             .add({
-              loc: [latitude, longitude],
+              location: [latitude, longitude],
               name: "test"
             });
           alert("uploaded " + Index);
@@ -66,9 +66,9 @@ export const Dev = () => {
       </button>
       <button
         onClick={() => {
-          var longIndex = parseFloat(longitude).toFixed(1);
-          var latiIndex = parseFloat(latitude).toFixed(1);
-          var Index = latiIndex + "+" + longIndex;
+          var longIndex = parseFloat(longitude).toFixed(5);
+          var latiIndex = parseFloat(latitude).toFixed(5);
+          var Index = longIndex + "+" + latiIndex;
           var ref = db
             .collection("test")
             .doc("test")
@@ -78,9 +78,8 @@ export const Dev = () => {
             snap.forEach(doc => {
               array.push(doc.data());
             });
-            setlist(list => array);
+            list = array;
           });
-          console.log(list);
         }}
       >
         get
