@@ -47,7 +47,7 @@ function MapContainer({
           <Marker
             key={`${marker.loc[0]}+${marker.loc[1]}+${marker.name}`}
             position={marker.loc}
-            icon={new Icon({ iconUrl: "./logo192.png", iconSize: [30, 100] })}
+            icon={new Icon({ iconUrl: "./user.png", iconSize: [100, 100] })}
           >
             <Popup>{marker.name}</Popup>
           </Marker>
