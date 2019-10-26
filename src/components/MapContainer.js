@@ -20,6 +20,7 @@ function MapContainer({
   useEffect(() => {
     if (markerData && markerData.length > 0) {
       setMarkers(markerData);
+      console.log("[MapContainer.js] markerData", markerData);
     }
   }, [markerData]);
 
@@ -48,9 +49,12 @@ function MapContainer({
         onClick={handleMapClick}
         onViewportChanged={handleMapViewportChanged}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />{" "}
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {markers.map(marker => (
-          <Marker key={marker} position={marker.loc}>
+          <Marker
+            key={`${marker.loc[0]}+${marker.loc[1]}+${marker.name}`}
+            position={marker.loc}
+          >
             <Popup>{marker.name}</Popup>
           </Marker>
         ))}
