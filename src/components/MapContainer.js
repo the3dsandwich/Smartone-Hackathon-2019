@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Icon } from "leaflet";
 import "./MapContainer.css";
 
 function MapContainer({
@@ -9,19 +10,12 @@ function MapContainer({
   markerData
 }) {
   const [viewport, setViewport] = useState(null);
-  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     if (viewport === null) {
       setViewport(userLocation);
     }
   }, [viewport, userLocation]);
-
-  useEffect(() => {
-    if (markerData && markerData.length > 0) {
-      setMarkers(markerData);
-    }
-  }, [markerData]);
 
   useEffect(() => {
     console.log("[MapContainer.js] viewport changed to", viewport);
@@ -48,9 +42,13 @@ function MapContainer({
         onClick={handleMapClick}
         onViewportChanged={handleMapViewportChanged}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />{" "}
-        {markers.map(marker => (
-          <Marker key={marker} position={marker.loc}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        {markerData.map(marker => (
+          <Marker
+            key={`${marker.loc[0]}+${marker.loc[1]}+${marker.name}`}
+            position={marker.loc}
+            icon={new Icon({ iconUrl: "./logo192.png", iconSize: [30, 100] })}
+          >
             <Popup>{marker.name}</Popup>
           </Marker>
         ))}
