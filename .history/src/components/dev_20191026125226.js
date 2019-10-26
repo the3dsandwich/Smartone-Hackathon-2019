@@ -35,14 +35,7 @@ export const Dev = () => {
           }}
         />
         <label>Longitude</label>
-        <input
-          type="text"
-          name="longitude"
-          value={longitude}
-          onchange={e => {
-            setlongitude(e.target.value);
-          }}
-        />
+        <input type="text" name="longitude" />
       </form>
       <h1>
         latitude:{latitude}

@@ -40,7 +40,7 @@ export const Dev = () => {
           name="longitude"
           value={longitude}
           onchange={e => {
-            setlongitude(e.target.value);
+            setlongitude(e.target.longitude);
           }}
         />
       </form>

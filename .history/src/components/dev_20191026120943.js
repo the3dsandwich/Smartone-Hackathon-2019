@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { auth } from "firebase";
 
 export const Dev = () => {
-  const [longitude, setlongitude] = useState(0);
-  const [latitude, setlatitude] = useState(0);
   return (
     <div>
       <p>Development</p>
@@ -26,29 +24,10 @@ export const Dev = () => {
       </button>
       <form>
         <label>Latitude</label>
-        <input
-          type="text"
-          name="latitude"
-          value={latitude}
-          onChange={e => {
-            setlatitude(e.target.value);
-          }}
-        />
-        <label>Longitude</label>
-        <input
-          type="text"
-          name="longitude"
-          value={longitude}
-          onchange={e => {
-            setlongitude(e.target.value);
-          }}
-        />
+        <input type="text" name="firstName" required />
+        <label>Lontitude</label>
+        <input type="text" name="lastName" required />
       </form>
-      <h1>
-        latitude:{latitude}
-        <br></br>
-        longitude:{longitude}
-      </h1>
     </div>
   );
 };

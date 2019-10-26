@@ -29,20 +29,13 @@ export const Dev = () => {
         <input
           type="text"
           name="latitude"
-          value={latitude}
+          value={useState.latitude}
           onChange={e => {
-            setlatitude(e.target.value);
+            setlatitude(latitude => e);
           }}
         />
         <label>Longitude</label>
-        <input
-          type="text"
-          name="longitude"
-          value={longitude}
-          onchange={e => {
-            setlongitude(e.target.value);
-          }}
-        />
+        <input type="text" name="longitude" />
       </form>
       <h1>
         latitude:{latitude}
