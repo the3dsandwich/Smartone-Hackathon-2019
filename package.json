@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-eslint": "10.0.3",
+    "eslint": "^6.6.0",
     "firebase": "^7.2.1",
     "leaflet": "^1.5.1",
     "react": "^16.11.0",

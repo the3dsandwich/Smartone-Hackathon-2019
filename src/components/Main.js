@@ -3,7 +3,16 @@ import { auth, firestore } from "firebase";
 import "./Main.css";
 import { MapContainer } from "./MapContainer";
 
-const devMarkerData = [{ loc: [22.415, 114.207], name: "temp" }];
+//Newly added TABS
+import Tabs from "./Tabs";
+require("./Tab.css");
+
+const devMarkerData = [
+  {
+    name: "this is a marker",
+    loc: [22.42, 114.207]
+  }
+];
 
 export const Main = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -13,6 +22,17 @@ export const Main = () => {
     zoom: 13
   });
   const [markerData, setMarkerData] = useState([]);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(pos =>
+      setUserLocation({ center: [pos.coords.latitude, pos.coords.longitude] })
+    );
+  });
+
+  useEffect(() => {
+    setUserInfo(auth().currentUser);
+    console.log("[Main.js] current user is", auth().currentUser);
+  }, []);
 
   const getRegion = loc => [
     `${(loc[0] + 0.1).toFixed(1)}+${(loc[1] + 0.1).toFixed(1)}`,
@@ -27,51 +47,32 @@ export const Main = () => {
   ];
 
   useEffect(() => {
-    setUserInfo(auth().currentUser);
-    console.log("[Main.js] current user is", auth().currentUser);
-    navigator.geolocation.getCurrentPosition(pos =>
-      setUserLocation({ center: [pos.coords.latitude, pos.coords.longitude] })
-    );
-  }, []);
-
-  useEffect(() => {
     const listeners = [];
     for (const region of getRegion(viewLocation.center)) {
-      let listener = firestore()
-        .collection("test")
-        .doc("test")
-        .collection(region)
-        .onSnapshot(snap => {
-          let markerTemp = markerData;
-          snap.forEach(doc => {
-            let tmp = doc.data();
-            let found = false;
-            for (const comp of markerData) {
-              if (
-                comp.name === tmp.name &&
-                comp.loc[0] === tmp.loc[0] &&
-                comp.loc[1] === tmp.loc[1]
-              ) {
-                found = true;
-                break;
-              }
-            }
-            if (!found) {
-              let t = tmp;
-              t.loc[0] = parseFloat(t.loc[0]);
-              t.loc[1] = parseFloat(t.loc[1]);
-              markerTemp.push(t);
-            }
-          });
-          setMarkerData(markerTemp);
-        });
-      listeners.push(listener);
+      console.log(region);
+      listeners.push(
+        firestore()
+          .collection("test")
+          .doc("test")
+          .collection(region)
+          .onSnapshot(snap => {
+            let markerTemp = markerData;
+            snap.forEach(doc => {
+              let tmp = doc.data();
+              tmp.loc[0] = parseFloat(tmp.loc[0]);
+              tmp.loc[1] = parseFloat(tmp.loc[1]);
+              markerTemp.push(tmp);
+            });
+            setMarkerData(markerTemp);
+            console.log(markerData);
+          })
+      );
     }
 
-    console.log("[Main.js] reloading markers");
-
     return () => {
-      for (const unsubscribe of listeners) unsubscribe();
+      for (const unsubscribe of listeners) {
+        unsubscribe();
+      }
     };
   }, [markerData, viewLocation]);
 
@@ -80,12 +81,19 @@ export const Main = () => {
       <header className="Main-header">
         <MapContainer
           userLocation={viewLocation}
-          onViewportChanged={viewport => setViewLocation(viewport)}
-          onMapClick={latlng =>
-            console.log("[Main.js] Map clicked", latlng, markerData)
+          onViewportChanged={viewport =>
+            console.log("[Main.js] viewport changed", viewport)
           }
-          markerData={devMarkerData}
+          onMapClick={latlng => console.log("[Main.js] Map clicked", latlng)}
+          markerData={markerData}
         />
+
+        <Tabs>
+          <div label="Discount">OOoooo free stuff?</div>
+          <div label="Events">what's happening around</div>
+          <div label="Incidents">omg teargass</div>
+        </Tabs>
+
         <button onClick={() => auth().signOut()}>sign out</button>
       </header>
     </div>

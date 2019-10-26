@@ -11,10 +11,10 @@ import "./App.css";
 import { Main } from "./components/Main";
 import { Dev } from "./components/dev";
 
-
 export const App = () => {
   const [appLoading, setAppLoading] = useState(true);
   const [isLoggedin, setIsLoggedin] = useState(false);
+  const [test, testplus] = useState(0);
 
   // dev component toggle
   const [openDevComponent, setOpenDevComponent] = useState(false);
@@ -63,6 +63,11 @@ export const App = () => {
     console.log("[App.js] isLoggedin changed to", isLoggedin);
   }, [isLoggedin]);
 
+  useEffect(() => {
+    console.log("click ",test)
+    };
+  }, []);
+
   // display rendering logic
   if (appLoading) {
     // app is loading
@@ -88,6 +93,8 @@ export const App = () => {
             Welcome <code>anonymous-dude</code>!
           </p>
           <button onClick={() => auth().signInAnonymously()}>login</button>
+          <button onClick={() => testplus(test => test + 1)}>add</button>
+          {test} times
         </header>
       </div>
     );

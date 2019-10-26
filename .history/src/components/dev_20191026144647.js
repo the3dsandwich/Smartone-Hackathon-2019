@@ -56,7 +56,7 @@ export const Dev = () => {
             .doc("test")
             .collection(Index)
             .add({
-              loc: [latitude, longitude],
+              location: [latitude, longitude],
               name: "test"
             });
           alert("uploaded " + Index);

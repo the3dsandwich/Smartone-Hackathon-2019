@@ -5,7 +5,6 @@ export const Dev = () => {
   const [longitude, setlongitude] = useState(0);
   const [latitude, setlatitude] = useState(0);
   const db = firebase.firestore();
-  const [list, setlist] = useState([]);
 
   return (
     <div>
@@ -49,41 +48,20 @@ export const Dev = () => {
       </form>
       <button
         onClick={() => {
-          var longIndex = parseFloat(longitude).toFixed(1);
-          var latiIndex = parseFloat(latitude).toFixed(1);
-          var Index = latiIndex + "+" + longIndex;
+          var longIndex = parseFloat(longitude).toFixed(5);
+          var latiIndex = parseFloat(latitude).toFixed(5);
+          var Index = longIndex + "+" + latiIndex;
           db.collection("test")
             .doc("test")
             .collection(Index)
             .add({
-              loc: [latitude, longitude],
+              location: [latitude, longitude],
               name: "test"
             });
           alert("uploaded " + Index);
         }}
       >
         submit
-      </button>
-      <button
-        onClick={() => {
-          var longIndex = parseFloat(longitude).toFixed(1);
-          var latiIndex = parseFloat(latitude).toFixed(1);
-          var Index = latiIndex + "+" + longIndex;
-          var ref = db
-            .collection("test")
-            .doc("test")
-            .collection(Index);
-          ref.get().then(snap => {
-            const array = [];
-            snap.forEach(doc => {
-              array.push(doc.data());
-            });
-            setlist(list => array);
-          });
-          console.log(list);
-        }}
-      >
-        get
       </button>
       <h1>
         latitude:{latitude}
