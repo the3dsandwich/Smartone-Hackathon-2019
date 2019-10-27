@@ -75,20 +75,23 @@ export const AddForm = ({ setAddFormDisplay }) => {
       return (
         <div className="firstPop">
           <form onSubmit={handleSwitchState1}>
-              <label>
-                select category <br/>
-                <select
-                  value={categorySelection}
-                  onChange={e => setCategorySelection(e.target.value)}
-                >
-                  {catSub.map(cat => (
-                    <option key={cat.name} value={cat.name}>
-                      {cat.name}
-                    </option>
-                  ))}
-                </select>
-              </label><br/>
-              <button type="submit" className ="nextButton">Next!</button>
+            <label>
+              select category <br />
+              <select
+                value={categorySelection}
+                onChange={e => setCategorySelection(e.target.value)}
+              >
+                {catSub.map(cat => (
+                  <option key={cat.name} value={cat.name}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <br />
+            <button type="submit" className="nextButton">
+              Next!
+            </button>
           </form>
         </div>
       );
@@ -97,7 +100,7 @@ export const AddForm = ({ setAddFormDisplay }) => {
         <div className="firstPop">
           <form onSubmit={handleSwitchState2}>
             <label>
-              select {categorySelection.toLowerCase()} type <br/>
+              select {categorySelection.toLowerCase()} type <br />
               <select
                 value={subtypeSelection}
                 onChange={e => setSubtypeSelection(e.target.value)}
@@ -110,8 +113,11 @@ export const AddForm = ({ setAddFormDisplay }) => {
                     </option>
                   ))}
               </select>
-            </label><br/>
-            <button type="submit" className ="nextButton">Next!</button>
+            </label>
+            <br />
+            <button type="submit" className="nextButton">
+              Next!
+            </button>
           </form>
         </div>
       );
@@ -120,15 +126,19 @@ export const AddForm = ({ setAddFormDisplay }) => {
         <div className="firstPop">
           <form onSubmit={handleSwitchState3}>
             <label>
-              The description:<br/>
+              The description:
+              <br />
               <input
                 type="text"
                 value={descriptionInput}
                 name="description"
                 onChange={e => setDescriptionInput(e.target.value)}
               ></input>
-            </label><br/>
-            <button type="submit" className ="nextButton">Next!</button>
+            </label>
+            <br />
+            <button type="submit" className="nextButton">
+              Next!
+            </button>
           </form>
         </div>
       );

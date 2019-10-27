@@ -57,8 +57,11 @@ export const Tab = ({ markerData, setFilteredCategory }) => {
           .filter(m => m.category === activeTab)
           .map(marker => (
             <li key={marker.name}>
-              <h4>{marker.name}</h4>
-              <p>[category: {marker.category}]</p>
+              <h4>[{marker.subtype}]</h4>
+              <p>
+                {new Date(marker.time).getMonth()}/
+                {new Date(marker.time).getDate()}: {marker.name}
+              </p>
             </li>
           ))}
       </ul>
