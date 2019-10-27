@@ -16,7 +16,7 @@ export const Main = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [userLocation, setUserLocation] = useState();
   const [viewLocation, setViewLocation] = useState({
-    center: [22.42, 114.207],
+    center: [22.273946693875526, 114.1383147239685],
     zoom: 13
   });
   const [markerData, setMarkerData] = useState([]);
@@ -104,7 +104,10 @@ export const Main = () => {
             setViewLocation(viewport);
             console.log("[Main.js] viewport changed", viewport);
           }}
-          onMapClick={latlng => console.log("[Main.js] Map clicked", latlng)}
+          onMapClick={latlng => {
+            console.log("[Main.js] Map clicked", latlng);
+            setAddFormDisplay(false);
+          }}
           markerData={markerData.filter(m => m.category === filteredCategory)}
         />
 
