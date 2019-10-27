@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { functions } from "firebase";
+import { functions, firestore } from "firebase";
 import "./AddForm.css";
 
 const catSub = [
@@ -15,6 +15,7 @@ const catSub = [
 ];
 
 export const AddForm = ({ setAddFormDisplay }) => {
+  const db = firestore();
   const [formState, setFormState] = useState("select-category");
   const [categorySelection, setCategorySelection] = useState("Discount");
   const [subtypeSelection, setSubtypeSelection] = useState("");
@@ -40,7 +41,7 @@ export const AddForm = ({ setAddFormDisplay }) => {
 
   const addFormResponse = e => {
     e.preventDefault();
-    let loc = [22.42, 114.207];
+    let loc = [22.256, 114.132];
     navigator.geolocation.getCurrentPosition(
       pos => (loc = [pos.coords.latitude, pos.coords.longitude])
     );
@@ -53,12 +54,20 @@ export const AddForm = ({ setAddFormDisplay }) => {
     };
     console.log("[AddForm.js] received instruction", parseSending);
 
-    const addMarker = functions().httpsCallable("addMarker");
-    addMarker(parseSending)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    // const addMarker = functions().httpsCallable("addMarker");
+    // addMarker(parseSending)
+    //   .then(res => console.log(res))
+    //   .catch(err => console.log(err));
+    var longIndex = parseFloat(loc[1]).toFixed(1);
+    var latiIndex = parseFloat(loc[0]).toFixed(1);
+    var Index = latiIndex + "+" + longIndex;
+    db.collection("test")
+      .doc("test")
+      .collection(Index)
+      .add(parseSending);
+    alert("uploaded " + Index);
 
-      setAddFormDisplay(false);
+    setAddFormDisplay(false);
   };
 
   switch (formState) {
@@ -88,7 +97,7 @@ export const AddForm = ({ setAddFormDisplay }) => {
         <div className="firstPop">
           <form onSubmit={handleSwitchState2}>
             <label>
-              select {categorySelection} type <br/>
+              select {categorySelection.toLowerCase()} type <br/>
               <select
                 value={subtypeSelection}
                 onChange={e => setSubtypeSelection(e.target.value)}

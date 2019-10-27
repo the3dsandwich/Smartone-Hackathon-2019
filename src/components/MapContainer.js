@@ -4,6 +4,7 @@ import { Icon } from "leaflet";
 import "./MapContainer.css";
 
 function MapContainer({
+  viewLocation,
   userLocation,
   onViewportChanged,
   onMapClick,
@@ -37,21 +38,31 @@ function MapContainer({
   return (
     <div className="Map-Container">
       <Map
+        minZoom={15}
+        maxZoom={18}
+        zoomControl={false}
         className="Map"
-        viewport={viewport}
+        viewport={viewLocation}
         onClick={handleMapClick}
         onViewportChanged={handleMapViewportChanged}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {markerData.map(marker => (
-          <Marker
-            key={`${marker.loc[0]}+${marker.loc[1]}+${marker.name}`}
-            position={marker.loc}
-            icon={new Icon({ iconUrl: "./user.png", iconSize: [30, 30] })}
-          >
-            <Popup>{marker.name}</Popup>
-          </Marker>
-        ))}
+        {markerData.map(marker => {
+          const icon = new Icon({
+            iconUrl:
+              marker.category === "Discount" ? "./user.png" : "./1111.png",
+            iconSize: [30, 30]
+          });
+          return (
+            <Marker
+              key={`${marker.loc[0]}+${marker.loc[1]}+${marker.name}`}
+              position={marker.loc}
+              icon={icon}
+            >
+              <Popup>{marker.name}</Popup>
+            </Marker>
+          );
+        })}
       </Map>
     </div>
   );

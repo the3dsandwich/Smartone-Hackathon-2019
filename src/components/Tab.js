@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Tab.css";
 
 const catSub = [
@@ -13,17 +13,17 @@ const catSub = [
   }
 ];
 
-const devMarkerData = [
-  { loc: [22.50469, 114.21077], name: "Discount stuff", category: "Discount" },
-  {
-    loc: [22.50269, 114.19077],
-    name: "Discount stuff 2",
-    category: "Discount"
-  },
-  { loc: [22.50369, 114.22077], name: "Event stuff", category: "Event" },
-  { loc: [22.50069, 114.20077], name: "Event stuff 2", category: "Event" },
-  { loc: [22.50869, 114.20077], name: "Incedent stuff", category: "Incident" }
-];
+// const devMarkerData = [
+//   { loc: [22.50469, 114.21077], name: "Discount stuff", category: "Discount" },
+//   {
+//     loc: [22.50269, 114.19077],
+//     name: "Discount stuff 2",
+//     category: "Discount"
+//   },
+//   { loc: [22.50369, 114.22077], name: "Event stuff", category: "Event" },
+//   { loc: [22.50069, 114.20077], name: "Event stuff 2", category: "Event" },
+//   { loc: [22.50869, 114.20077], name: "Incedent stuff", category: "Incident" }
+// ];
 
 export const Tab = ({ markerData, setFilteredCategory }) => {
   const [activeTab, setActiveTab] = useState(catSub[0].name);
