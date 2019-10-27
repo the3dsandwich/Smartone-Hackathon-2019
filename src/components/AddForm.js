@@ -41,7 +41,7 @@ export const AddForm = ({ setAddFormDisplay }) => {
 
   const addFormResponse = e => {
     e.preventDefault();
-    let loc = [22.42, 114.207];
+    let loc = [22.256, 114.132];
     navigator.geolocation.getCurrentPosition(
       pos => (loc = [pos.coords.latitude, pos.coords.longitude])
     );
