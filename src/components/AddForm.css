@@ -3,39 +3,68 @@
     /* display: block; */
     position: fixed;
     bottom: 350px;
-    border: 3px solid #176dbd;
+    border: 3px solid #0e7e74;
     z-index: 1010;
-    background-color: whitesmoke;
+    background-color: rgb(171, 216, 214);
     border-top-width: 15px;
     padding: 50px 50px 10px 50px;
     height: 300px;
     width: 280px;
+    text-align: center;
     justify-content: center;
     line-height: 1.2;
-    color: #3c668d;
+    color: #213435;
+    font-size: 20px;
 }
 .nextButton {
-	box-shadow:inset 0px 1px 0px 0px #54a3f7;
-	background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
-	background-color:#007dc1;
-	border-radius:3px;
-	border:1px solid #124d77;
+	box-shadow:inset 0px 0px 14px -3px #caefab;
+	background-color:#52ebc0;
+	border-radius:6px;
+	border:1px solid #238066;
 	display:inline-block;
 	cursor:pointer;
-	color:#ffffff;
-	font-family:Verdana;
+	color:#0a6345;
+	font-family:Arial;
 	font-size:18px;
-    padding:4px 10px;
-    margin: 50px 10px 10px;
+    font-weight:bold;
+    margin: 50px 10px 7px;
+	padding:6px 24px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #154682;
+	text-shadow:0px 1px 0px #aade7c;
 }
 .nextButton:hover {
-	background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
-    background-color:#0061a7;
-    text-decoration:underline;
+	background-color:#2cbd99;
 }
 .nextButton:active {
 	position:relative;
 	top:1px;
 }
+.submitButton {
+	box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	background:linear-gradient(to bottom, #92e0d3 5%, #2dbdaa 100%);
+	background-color:#92e0d3;
+	border-radius:24px;
+	border:3px solid #0e6957;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #86ae47;
+    position: fixed;
+    margin: 150px -55px;
+    justify-content: center;
+}
+.submitButton:hover {
+	background:linear-gradient(to bottom, #2dbdaa 5%, #92e0d3 100%);
+	background-color:#2dbdaa;
+}
+.submitButton:active {
+	position:relative;
+	top:1px;
+}
+
+

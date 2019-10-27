@@ -136,7 +136,7 @@ export const AddForm = ({ setAddFormDisplay }) => {
       return (
         <div className="firstPop">
           <form onSubmit={addFormResponse}>
-            <button type="submit">Submit!</button>
+            <button type="submit" className ="submitButton">Submit!</button>
           </form>
         </div>
       );

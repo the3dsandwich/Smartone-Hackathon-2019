@@ -22,15 +22,17 @@
   width: 100%;
   font-size: 1rem;
   font-weight: 300;
-  background: #c0dced;
-  color: #14396a;
-  border: 0;
+  background: #cbeeee;
+  border:0;
+  color: #3ca1a8;
   cursor: pointer;
 }
 
 .tab-list-active button {
   font-weight: 700;
-  background-color: #8fbae0;
+  background-color: #7fd1c3;
+  border-color: #196368;
+  border-style: solid solid none solid;
 }
 
 .tab-content {

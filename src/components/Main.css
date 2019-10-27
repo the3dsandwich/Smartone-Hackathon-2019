@@ -22,18 +22,18 @@
 }
 
 .fab {
-  background-color: #c0dced;
+  background-color: #a9e0de;
   border-radius: 50%;
-  border: 4px solid #3866a3;
+  border: 4px solid #33a3a7;
   display: inline-block;
   cursor: pointer;
-  color: #14396a;
+  color: #126154;
   font-family: Impact;
   font-size: 45px;
   font-weight: bold;
   padding: 8px 24px;
   text-decoration: none;
-  text-shadow: 2px 2px 0px #7cacde;
+  text-shadow: 2px 2px 0px #68c5cc;
   position: fixed;
   top: 50vh;
   right: 5vw;
@@ -41,5 +41,5 @@
 }
 
 .fab:hover {
-  background-color: #8fbae0;
+  background-color: #7ac9bc;
 }
